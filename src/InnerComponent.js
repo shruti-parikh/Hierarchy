@@ -1,43 +1,38 @@
-import { useEffect, useState } from "react";
-import {useAsync} from "react-async"
 
-export default  function InnerComponent(props)
+
+
+// 'https://raw.githubusercontent.com/shruti-parikh/BooleanLogicData/main/export_01_boolean_logic/'+j+'.json'
+// const Other = ({ id }) => {
+//     // const { data, error } = useFetch('https://raw.githubusercontent.com/shruti-parikh/BooleanLogicData/main/export_01_boolean_logic/'+id.id+'.json')
+//     fetch('https://raw.githubusercontent.com/shruti-parikh/BooleanLogicData/main/export_01_boolean_logic/'+id+'.json')
+//     .then(response => response.json())
+//     .then(data => 
+//         {
+//             console.log(data.title)
+//             return <li>data.title</li>
+//         } )
+import { useState,useEffect } from 'react';
+
+export default function InnerComponent(props)
 {
-    // const [title,setTitle] = useState(undefined)
-    const Other = async(j) => {
-        let jsondata = await fetch('https://raw.githubusercontent.com/shruti-parikh/BooleanLogicData/main/export_01_boolean_logic/'+j+'.json')
-        // fetch('https://raw.githubusercontent.com/shruti-parikh/BooleanLogicData/main/export_01_boolean_logic/'+j+'.json')
-        // .then(response => response.json())
-        // .then(data => 
-        //     {
-        //         console.log(data.title)
-        //         return data.title
-        //     } 
-        // );
-    
-        var  innerdata = await jsondata.json()
-        return innerdata.title
-
-
+    const [data,setData] = useState()
+    const submit =()=>
+    {
+        fetch(`https://raw.githubusercontent.com/shruti-parikh/BooleanLogicData/main/export_01_boolean_logic/${props.jnum}.json`)
+        .then(response => response.json())
+        .then(data => 
+            {
+                // console.log(data.children.length)
+                setData(data)
+            } 
+        );
     }
     
-    // console.log(innerdata)
-    // const Other = innerdata.title  
-    // console.log(Other)
+    useEffect(()=>{
+        submit()
+      },[])
     
-        
-        // // console.log(jsondata.json())
-        // console.log(innerdata.title)
-        // return innerdata.title
-
-    
-    // useEffect(()=>
-    // {
-    //     setTitle(Other(props.j))
-    // },[])
-
-
-    return (
-        <div>{<li>{}</li>}</div>
-        )
+      return(
+        <div> {data && <a href ="#">{data.title}</a>}</div>
+    )
 }

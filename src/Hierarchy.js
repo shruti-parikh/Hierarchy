@@ -22,6 +22,9 @@ export default function Hierarchy()
       },[])
     
     return(
-        <div> {hierarchy && <Table data={hierarchy.children}/>}</div>
+        <div>
+            <h1>Table of Contents</h1>
+            {hierarchy && <Table data={hierarchy.children}/>}
+        </div>
     )
 }
